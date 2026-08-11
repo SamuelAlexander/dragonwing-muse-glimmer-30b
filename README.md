@@ -13,7 +13,7 @@ Run Meta's 30B vision-language model entirely on a Dragonwing IQ-9075. Zero-shot
 
 ![A circuit board with four bent header pins, the 512 pixel image sent to the model, and the JSON verdict identifying bent pins in the lower-left header](images/hero.jpg)
 
-I gave the board a photo of a PCB I had built badly on purpose and asked it, in plain English, to look for manufacturing defects. This is zero-shot: the model has never seen this board, this defect, or any inspection dataset of mine. It works from what it already knows. Three and a half minutes later:
+I gave the board a photo of a PCB I had built badly on purpose and asked it, in plain English, to look for manufacturing defects. This is zero-shot: the model has never seen this board, this defect, or any inspection dataset of mine. It works from what it already knows. It looked the board over and came back with this:
 
 ```json
 {"pass": false,

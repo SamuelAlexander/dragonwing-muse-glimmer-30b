@@ -416,17 +416,6 @@ Raw logs for every number above are in [`results/`](results/).
 └── images/               figures used above
 ```
 
-The diagram and the tables above are also in [`images/`](images/) as PNGs (`two-tier.png`, `terms-table.png`, `results-table.png`, `project-structure.png`), for reposting anywhere that does not render mermaid or wide markdown tables.
-
-To reproduce the bandwidth figure yourself:
-
-```bash
-gcc -O2 -o membw scripts/membw.c -lpthread
-echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
-./membw 4 8
-echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
-```
-
 ## Going further
 
 - A Mixture-of-Experts model in this size class activates a fraction of its weights per token, which is the direct route to interactive speed on this board. The same llama.cpp build runs any GGUF.

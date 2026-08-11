@@ -43,6 +43,8 @@ def font(path, size, index=0):
     return ImageFont.truetype(path, size, index=index)
 
 
+_MEASURE = ImageDraw.Draw(Image.new("RGB", (1, 1)))   # for measuring text off-canvas
+
 F_LABEL = font(SANS, 25, 2)      # medium weight
 F_CAPTION = font(SANS, 19)
 F_JSON = font(MONO, 17)
@@ -569,121 +571,135 @@ def two_tier_figure():
     print(f"wrote images/two-tier.png  {W}x{H}")
 
 
-def table_figure(title, headers, rows, out_name, col_w, note=None, bold_last=False):
-    f_h = font(SANS, 20, 2)
-    f_r = font(MONO, 18)
-    pad, rh = 40, 42
-    W = pad * 2 + sum(col_w)
-    H = 74 + 52 + rh * len(rows) + (46 if note else 0) + pad
-    img = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(img)
-    d.text((pad, 26), title, font=font(SANS, 27, 2), fill=INK)
+# Every markdown table in README.md is rendered from the README itself, so the images
+# can never drift from the prose. Keyed by the table's header row.
+TABLE_SPECS = {
+    ("Term", "Meaning"): dict(
+        out="terms-table.png", title="Terms used in this guide", wrap=58),
+    ("What", "Time"): dict(
+        out="inspection-timing.png", title="What one inspection costs", wrap=46),
+    ("Context", "KV cache"): dict(
+        out="kv-cache-table.png", title="Why a 131K context is affordable here", wrap=46),
+    ("Step", "Tokens", "Time"): dict(
+        out="document-timing.png", title="Read the document once, then ask", wrap=30,
+        note="The first call pays for the whole document. Every question after reuses the cache."),
+    ("Threads", "Prefill (512 tokens)", "Generation (64 tokens)"): dict(
+        out="threads-table.png", title="Use all eight cores", wrap=26),
+    ("Tier", "Runs on", "Timescale", "Good for"): dict(
+        out="tiers-table.png", title="Which tier a job belongs to", wrap=34),
+    ("Measurement", "Value"): dict(
+        out="results-table.png", title="Measured on the board", wrap=52,
+        note="Raw logs for every number are in results/."),
+}
 
-    y = 90
-    x = pad
-    for h, w in zip(headers, col_w):
-        d.text((x, y), h, font=f_h, fill=(60, 68, 86))
-        x += w
-    y += 34
-    d.line([(pad, y), (W - pad, y)], fill=(196, 202, 214), width=2)
-    y += 10
-
-    for i, row in enumerate(rows):
-        last = bold_last and i == len(rows) - 1
-        if i % 2 == 0 and not last:
-            d.rectangle([pad - 10, y - 6, W - pad + 10, y + rh - 10], fill=(241, 242, 246))
-        if last:
-            d.rounded_rectangle([pad - 10, y - 6, W - pad + 10, y + rh - 10], radius=6,
-                                fill=(232, 238, 250))
-        x = pad
-        for cell, w in zip(row, col_w):
-            f = font(MONO, 18, 1) if last else f_r
-            d.text((x, y), cell, font=f, fill=INK if last else (40, 44, 56))
-            x += w
-        y += rh
-        if not last:
-            d.line([(pad, y - 8), (W - pad, y - 8)], fill=(228, 231, 238), width=1)
-
-    if note:
-        d.text((pad, y + 8), note, font=font(SANS, 18), fill=MUTED)
-    img.save(OUT / out_name)
-    print(f"wrote images/{out_name}  {W}x{H}")
+# A couple of cells point at their surroundings, which means nothing in a standalone
+# image. Reword just those.
+CELL_SUBS = {
+    "This distinction explains the whole performance story below.":
+        "This distinction explains the performance story in this guide.",
+}
 
 
-def results_table():
-    table_figure(
-        "Measured on the board",
-        ["Measurement", "Value"],
-        [["Model file", "16.76 GB on disk, 15.59 GiB loaded, 27.85 B params"],
-         ["Prefill, 8 threads", "8.13 tokens/s"],
-         ["Generation, 8 threads", "2.84 tokens/s"],
-         ["Weight bandwidth while generating", "47.5 GB/s, 91% of measured peak read"],
-         ["Peak read, pure-read benchmark", "52 GB/s at 4 threads (49 GB/s warm)"],
-         ["Image encode, 512 px", "34.0 s"],
-         ["Image encode, 1024 px", "131.9 s"],
-         ["Image to JSON verdict, low reasoning", "212.2 s"],
-         ["Image to JSON verdict, high reasoning", "277.7 s"],
-         ["Tool call from a sensor report", "205.4 s"],
-         ["Read a 26,285-token document", "3,999 s, then 51-134 s per question"],
-         ["Full 131K context, KV cache", "about 1.8 GB"]],
-        "results-table.png", [520, 620],
-        note="Raw logs for every number are in results/.")
+def parse_markdown_tables(md_path):
+    """Yield (headers, rows) for every pipe table in a markdown file."""
+    lines = md_path.read_text().splitlines()
+    i, tables = 0, []
+    while i < len(lines):
+        if lines[i].startswith("|") and i + 1 < len(lines) and set(lines[i + 1]) <= set("|-: "):
+            block = []
+            j = i
+            while j < len(lines) and lines[j].startswith("|"):
+                block.append(lines[j])
+                j += 1
+            cells = [[c.strip() for c in row.strip("|").split("|")] for row in block]
+            tables.append((cells[0], cells[2:]))   # skip the |---| separator row
+            i = j
+        else:
+            i += 1
+    return tables
 
 
-def terms_table():
-    """The glossary, as a standalone image. Definitions wrap, so row heights vary."""
-    rows = [
-        ("GGUF", "The single-file model format llama.cpp loads: weights, tokenizer and "
-                 "chat template together."),
-        ("Prefill", "Reading the prompt before any reply begins. Sets how long you wait "
-                    "for the first word."),
-        ("Generation", "Producing the reply one token at a time. This is the speed you "
-                       "feel while reading along."),
-        ("Dense model", "Every weight participates in every token. The opposite is "
-                        "Mixture-of-Experts, where only a fraction does. This distinction "
-                        "explains the performance story in this guide."),
-        ("Perception encoder", "The vision half of the model. Turns an image into tokens "
-                               "the language half can read."),
-        ("KV cache", "Working memory for the conversation so far, so the model does not "
-                     "re-read it every token."),
-    ]
-    f_term = font(SANS, 21, 2)
-    f_def = font(SANS, 20)
+def render_table(headers, rows, out, title, wrap=48, note=None):
+    """Render one parsed markdown table. Bold cells stay bold; long cells wrap."""
     f_head = font(SANS, 20, 2)
+    f_cell = font(SANS, 20)
+    f_cell_b = font(SANS, 20, 2)
+    f_key = font(SANS, 21, 2)
+    pad, lh, row_pad = 40, 29, 22
 
-    pad, col1, col2, lh = 40, 250, 760, 29
-    W = pad * 2 + col1 + col2
+    def clean(cell):
+        bold = "**" in cell
+        text = cell.replace("**", "").replace("`", "")
+        return CELL_SUBS.get(text, text), bold
 
-    # Wrap first so the canvas is exactly as tall as the content needs.
-    wrapped = [(t, textwrap.wrap(dfn, width=58)) for t, dfn in rows]
-    body_h = sum(max(len(w), 1) * lh + 22 for _, w in wrapped)
-    H = 90 + 46 + body_h + pad
+    grid = [[clean(c) for c in row] for row in rows]
+    wrapped = [[(textwrap.wrap(t, width=wrap) or [""], b) for t, b in row] for row in grid]
+
+    ncol = len(headers)
+    col_w = []
+    for c in range(ncol):
+        widest = max(
+            [_MEASURE.textlength(headers[c].replace("**", ""), font=f_head)] +
+            [_MEASURE.textlength(line, font=f_cell_b)
+             for row in wrapped for line in row[c][0]]
+        )
+        col_w.append(widest + 46)
+
+    W = pad * 2 + int(sum(col_w))
+    body_h = sum(max(len(cell[0]) for cell in row) * lh + row_pad for row in wrapped)
+    H = 90 + 46 + body_h + (44 if note else 0) + pad
 
     img = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(img)
-    d.text((pad, 28), "Terms used in this guide", font=font(SANS, 27, 2), fill=INK)
+    d.text((pad, 28), title, font=font(SANS, 27, 2), fill=INK)
 
     y = 96
-    d.text((pad, y), "Term", font=f_head, fill=(60, 68, 86))
-    d.text((pad + col1, y), "Meaning", font=f_head, fill=(60, 68, 86))
+    x = pad
+    for h, w in zip(headers, col_w):
+        d.text((x, y), h.replace("**", ""), font=f_head, fill=(60, 68, 86))
+        x += w
     y += 32
     d.line([(pad, y), (W - pad, y)], fill=(196, 202, 214), width=2)
     y += 14
 
-    for i, (term, lines) in enumerate(wrapped):
-        h = max(len(lines), 1) * lh + 22
-        if i % 2 == 0:
+    for i, row in enumerate(wrapped):
+        h = max(len(cell[0]) for cell in row) * lh + row_pad
+        emphasised = any(b for _, b in row)
+        if emphasised:
+            d.rounded_rectangle([pad - 12, y - 8, W - pad + 12, y + h - 14], radius=6,
+                                fill=(232, 238, 250))
+        elif i % 2 == 0:
             d.rectangle([pad - 12, y - 8, W - pad + 12, y + h - 14], fill=(241, 242, 246))
-        d.text((pad, y), term, font=f_term, fill=(28, 62, 140))
-        for j, line in enumerate(lines):
-            d.text((pad + col1, y + j * lh), line, font=f_def, fill=(40, 44, 56))
+        x = pad
+        for c, (cell_lines, bold) in enumerate(row):
+            f = f_key if c == 0 else (f_cell_b if bold else f_cell)
+            colour = (28, 62, 140) if c == 0 else (40, 44, 56)
+            for j, line in enumerate(cell_lines):
+                d.text((x, y + j * lh), line, font=f, fill=colour)
+            x += col_w[c]
         y += h
-        if i < len(wrapped) - 1:
+        if i < len(wrapped) - 1 and not emphasised:
             d.line([(pad, y - 12), (W - pad, y - 12)], fill=(228, 231, 238), width=1)
 
+    if note:
+        d.text((pad, y + 6), note, font=font(SANS, 18), fill=MUTED)
+
     OUT.mkdir(exist_ok=True)
-    img.save(OUT / "terms-table.png")
-    print(f"wrote images/terms-table.png  {W}x{H}")
+    img.save(OUT / out)
+    print(f"wrote images/{out}  {W}x{H}")
+
+
+def all_readme_tables():
+    seen = set()
+    for headers, rows in parse_markdown_tables(ROOT / "README.md"):
+        spec = TABLE_SPECS.get(tuple(headers))
+        if spec is None:
+            print(f"  WARNING: no spec for table {headers}, skipped")
+            continue
+        render_table(headers, rows, **spec)
+        seen.add(tuple(headers))
+    for missing in set(TABLE_SPECS) - seen:
+        print(f"  WARNING: spec {missing} matched no table in README.md")
 
 
 def structure_figure():
@@ -726,6 +742,5 @@ if __name__ == "__main__":
     architecture_figure()
     cadence_figure()
     two_tier_figure()
-    results_table()
-    terms_table()
+    all_readme_tables()
     structure_figure()

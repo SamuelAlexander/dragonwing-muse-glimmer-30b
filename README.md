@@ -409,7 +409,7 @@ Raw logs for every number above are in [`results/`](results/).
 │   ├── inspect.sh        inspect one image, print a JSON verdict (Step 4)
 │   ├── manual_qa.py      read a long document once, then ask questions about it
 │   ├── fetch-manual.sh   rebuild that document from Qualcomm's published pages
-│   └── membw.c           the memory-bandwidth probe behind the 52 GB/s figure
+│   ├── membw.c           the memory-bandwidth probe behind the 52 GB/s figure
 │   └── render-doc-assets.py  rebuilds every figure in this guide
 ├── results/              raw logs for every number in this guide
 ├── test-data/            the board photos used in the inspection runs

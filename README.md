@@ -416,7 +416,7 @@ Raw logs for every number above are in [`results/`](results/).
 └── images/               figures used above
 ```
 
-The diagram and the tables above are also in [`images/`](images/) as PNGs (`two-tier.png`, `results-table.png`, `project-structure.png`), for reposting anywhere that does not render mermaid or wide markdown tables.
+The diagram and the tables above are also in [`images/`](images/) as PNGs (`two-tier.png`, `terms-table.png`, `results-table.png`, `project-structure.png`), for reposting anywhere that does not render mermaid or wide markdown tables.
 
 To reproduce the bandwidth figure yourself:
 

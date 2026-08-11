@@ -630,6 +630,62 @@ def results_table():
         note="Raw logs for every number are in results/.")
 
 
+def terms_table():
+    """The glossary, as a standalone image. Definitions wrap, so row heights vary."""
+    rows = [
+        ("GGUF", "The single-file model format llama.cpp loads: weights, tokenizer and "
+                 "chat template together."),
+        ("Prefill", "Reading the prompt before any reply begins. Sets how long you wait "
+                    "for the first word."),
+        ("Generation", "Producing the reply one token at a time. This is the speed you "
+                       "feel while reading along."),
+        ("Dense model", "Every weight participates in every token. The opposite is "
+                        "Mixture-of-Experts, where only a fraction does. This distinction "
+                        "explains the performance story in this guide."),
+        ("Perception encoder", "The vision half of the model. Turns an image into tokens "
+                               "the language half can read."),
+        ("KV cache", "Working memory for the conversation so far, so the model does not "
+                     "re-read it every token."),
+    ]
+    f_term = font(SANS, 21, 2)
+    f_def = font(SANS, 20)
+    f_head = font(SANS, 20, 2)
+
+    pad, col1, col2, lh = 40, 250, 760, 29
+    W = pad * 2 + col1 + col2
+
+    # Wrap first so the canvas is exactly as tall as the content needs.
+    wrapped = [(t, textwrap.wrap(dfn, width=58)) for t, dfn in rows]
+    body_h = sum(max(len(w), 1) * lh + 22 for _, w in wrapped)
+    H = 90 + 46 + body_h + pad
+
+    img = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(img)
+    d.text((pad, 28), "Terms used in this guide", font=font(SANS, 27, 2), fill=INK)
+
+    y = 96
+    d.text((pad, y), "Term", font=f_head, fill=(60, 68, 86))
+    d.text((pad + col1, y), "Meaning", font=f_head, fill=(60, 68, 86))
+    y += 32
+    d.line([(pad, y), (W - pad, y)], fill=(196, 202, 214), width=2)
+    y += 14
+
+    for i, (term, lines) in enumerate(wrapped):
+        h = max(len(lines), 1) * lh + 22
+        if i % 2 == 0:
+            d.rectangle([pad - 12, y - 8, W - pad + 12, y + h - 14], fill=(241, 242, 246))
+        d.text((pad, y), term, font=f_term, fill=(28, 62, 140))
+        for j, line in enumerate(lines):
+            d.text((pad + col1, y + j * lh), line, font=f_def, fill=(40, 44, 56))
+        y += h
+        if i < len(wrapped) - 1:
+            d.line([(pad, y - 12), (W - pad, y - 12)], fill=(228, 231, 238), width=1)
+
+    OUT.mkdir(exist_ok=True)
+    img.save(OUT / "terms-table.png")
+    print(f"wrote images/terms-table.png  {W}x{H}")
+
+
 def structure_figure():
     W, H = 1240, 520
     img = Image.new("RGB", (W, H), BG)
@@ -671,4 +727,5 @@ if __name__ == "__main__":
     cadence_figure()
     two_tier_figure()
     results_table()
+    terms_table()
     structure_figure()

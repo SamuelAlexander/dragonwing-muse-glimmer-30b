@@ -33,7 +33,7 @@ Muse Glimmer is Meta's entry in that direction, released in August 2026 under Ap
 
 ![The anatomy of Muse Glimmer: a 1.8 billion parameter vision encoder feeding a 52-layer text tower whose attention alternates three sliding-window layers with one full-attention layer, with a 131,072 token context](images/architecture.png)
 
-Most of what has been written since release runs it on a fast GPU as a coding assistant, and it is good at that. There is a second question worth asking, though, and it is the one this guide is about: what happens when you hand a model like this to a board that lives on a factory floor or in a greenhouse.
+Most of what has been written since release runs it on a fast GPU as a coding assistant, and it is good at that. There is a second question worth asking, though, and it is the one this guide is about: **what happens when you hand a model like this to a board that lives on a factory floor or in a greenhouse.**
 
 ## Why a model like this changes what a board can do
 

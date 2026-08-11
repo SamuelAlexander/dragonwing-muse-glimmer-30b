@@ -205,7 +205,20 @@ My favourite answer was the one I did not plan for. Asked about wireless support
 
 ![A chat session served from the board at 192.168.2.177 port 8080. Asked which Wi-Fi and Bluetooth versions are supported, the model answers Wi-Fi 6E and Bluetooth 5.3, then quotes two different documentation pages, one giving Bluetooth 5.3 and the other Bluetooth Core Specification v5.2](images/webui.png)
 
-Those two pages disagree: 5.3 on one, 5.2 on the other. Rather than pick one and sound confident, it quoted both with their sources and left the contradiction visible. That behaviour is worth more than the speed costs, and it is not something a keyword search over the same documents would have given you.
+Two pages in the same documentation set give slightly different Bluetooth versions. Rather than pick one and sound confident, the model quoted both and named where each came from, which is exactly the prompt to go and check. So I asked the board:
+
+```bash
+hciconfig -a | grep -E "HCI Version|LMP Version"
+```
+
+```
+HCI Version: 5.3 (0xc)  Revision: 0x0
+LMP Version: 5.3 (0xc)  Subversion: 0x8674
+```
+
+The summary table has it right: this EVK does Bluetooth 5.3, reported by the controller itself at both HCI and LMP level. The 5.2 on the interface page looks like a line written against an earlier firmware revision, which is the kind of drift any large documentation set collects over time.
+
+The behaviour is what I want to draw out, though. A model that answers a spec question by naming its sources hands you something you can verify in one command. A model that quietly reconciles two sources into one confident sentence hands you nothing, and here it would have had even odds of being wrong.
 
 **You do not have to pay that hour twice.** Start the server with `--slot-save-path`, and once the document is read you can write the cache to disk and load it back later:
 

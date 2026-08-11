@@ -1,0 +1,45 @@
+############ BLOCK 2: df -h / ############
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda3       112G   55G   53G  52% /
+PASS  df
+############ BLOCK 3: apt install ############
+PASS  apt install (already satisfied)
+############ BLOCK 4: clone + build (fresh, in a scratch dir) ############
+PASS  git clone --depth 1 (24s, 206M)
+PASS  cmake configure
+  (skipping the 10 min full build in the scratch clone; the real build is ~/llama.cpp)
+############ BLOCK 5: model paths + URLs ############
+total 17731476
+drwxrwxr-x  2 ubuntu ubuntu        4096 Aug 11 06:44 .
+drwxr-x--- 24 ubuntu ubuntu        4096 Aug 11 06:44 ..
+-rw-rw-r--  2 ubuntu ubuntu  1400328928 Aug 10 16:52 mmproj-kquant.gguf
+-rw-rw-r--  2 ubuntu ubuntu 16756681056 Aug 10 16:46 muse-glimmer-30B-kquant-17gb.gguf
+PASS  URL 200: muse-glimmer-30B-kquant-17gb.gguf
+PASS  URL 200: mmproj-kquant.gguf
+############ BLOCK 6: llama-cli chat ############
+PASS  llama-cli with ~/models path
+[ Prompt: 7.3 t/s | Generation: 2.7 t/s ]
+
+
+Exiting...
+############ BLOCK 7: llama-mtmd-cli inspection ############
+PASS  llama-mtmd-cli verbatim
+1.10.809.420 I mtmd batch encoding done in 34007 ms
+############ BLOCK 8+9: server + curl ############
+PASS  llama-server started
+  content: 'hello from the board'
+  PASS  curl chat completions
+############ BLOCK 1: slot save / restore ############
+{"id_slot":0,"filename":"manual.bin","n_saved":0,"n_written":28,"timings":{"save_ms":1.079}}
+{"id_slot":0,"filename":"manual.bin","n_restored":0,"n_read":28,"timings":{"restore_ms":0.102}}
+############ BLOCK 10: membw ############
+PASS  gcc membw
+buffer: 4.0 GiB
+threads   read GB/s
+      1       21.4
+      2       38.7
+      4       49.0
+      8       46.1
+/home/ubuntu/walk.sh: line 94: 23606 Killed                  setsid ./build/bin/llama-server -m ~/models/muse-glimmer-30B-kquant-17gb.gguf -t 8 -c 4096 --jinja --host 0.0.0.0 --port 8080 --slot-save-path /tmp/slots > /tmp/w_server.log 2>&1 < /dev/null  (wd: ~/llama.cpp)
+governor back to schedutil
+############ WALK COMPLETE 06:54:48 ############

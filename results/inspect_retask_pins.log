@@ -1,0 +1,26 @@
+0.01.809.728 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.809.752 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.832.910 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.33.220.584 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.33.220.596 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.33.220.917 W WARN: This is an experimental CLI for testing multimodal capability.
+0.33.220.924 W       For normal use cases, please use the standard llama-cli
+
+0.38.753.633 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.12.706.795 I mtmd batch encoding done in 33954 ms
+
+ to=self<|message|>Check only one thing on this circuit board: are all header pins straight and parallel? Reply with ONLY a JSON object and nothing else: {"pins_ok": true|false, "bent_count": number, "note": "..."}
+
+Look at image: bottom row yellow headers, some pins bent. Count bent. Pins on left side: first few bent outward? Looks like 4 pins bent? Let's see: leftmost 3 pins bent leftwards? Actually pins angled. Maybe 4 bent. Let's count: first pin bent, second bent, third bent, fourth bent? The fourth is maybe slightly bent? Might be 4 bent pins. Also maybe one more? Looks like 4 pins bent. So pins_ok false, bent_count 4? Could be 4 or 5. Let's assume 4 bent pins on lower left.
+
+Return JSON.
+
+<|eom|><|start|>assistant to=user<|message|>{"pins_ok": false, "bent_count": 4, "note": "Several header pins on the lower left side of the board are bent outward and not parallel with the rest of the pins."}
+
+
+  WALL 194.81 s

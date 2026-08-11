@@ -1,0 +1,52 @@
+
+
+Loading model... |-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/- 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b1-dd1ea52
+model      : /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+ftype      : Q4_K - Medium
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Explain the difference between prefill and decode in LLM inference, in one paragraph.
+
+[Start thinking]
+
+Explain the difference between prefill and decode in LLM inference, in one paragraph.
+
+Explain difference between prefill and decode in LLM inference, in one paragraph.
+
+We need one paragraph. Probably concise explanation. Prefill is processing prompt tokens in parallel, compute KV cache. Decode is autoregressive token generation one at a time.
+
+Should explain difference. Possibly mention compute bound vs memory bound, etc.
+
+One paragraph. Should be clear.
+
+Probably mention prefill = prompt processing, parallel, compute intensive, can batch. Decode = token-by-token generation, autoregressive, memory bandwidth bound.
+
+Make sure one paragraph. Not multiple paragraphs.
+
+Output in one paragraph.
+
+Possibly add details: prefill uses full self-attention over prompt, O(n^2) compute, builds KV cache. Decode uses previously
+
+[ Prompt: 7.3 t/s | Generation: 2.8 t/s ]
+
+
+Exiting...

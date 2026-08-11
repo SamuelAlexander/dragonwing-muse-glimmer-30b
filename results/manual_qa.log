@@ -1,0 +1,49 @@
+=== START 05:09:52 ===
+server up 05:10:22
+0.29.834.492 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 32768, kv_unified = 'false'
+manual chars=96951
+=== LOADING THE MANUAL (first call pays prefill) ===
+[load] 3999.2s  prompt_tokens=26285 cached=0  -> ''
+=== QUESTIONS (context already resident) ===
+
+--- Q1 (134.4s, prompt_tokens=26311, cached=26286, completion=220) ---
+Q: How much RAM does this board have, and what type and speed is it?
+A: From the documentation:
+
+* Device specifications: **"RAM: Up to 36 GB LPDDR5 @ 3200 MHz with inline ECC"
+
+--- Q2 (106.6s, prompt_tokens=26365, cached=26312, completion=161) ---
+Q: How many Ethernet ports does the EVK have, and at what speed?
+A: The Dragonwing IQ-9075 EVK has:
+
+* **Ethernet:** `2× 2.5 GbE`
+
+Device specifications table lists:  
+`Ethernet: 2× 2.5 GbE`
+
+Hardware Specifications table lists:  
+`Ethernet` `RJ45 2 x 2.5 GbE SGMII`
+
+--- Q3 (80.2s, prompt_tokens=26454, cached=26366, completion=104) ---
+Q: Which Wi-Fi and Bluetooth versions does it support?
+A: The Dragonwing IQ-9075 EVK supports:
+
+* **Wi-Fi:** `Wi-Fi 6E`
+* **Bluetooth:** `Bluetooth 5.3`
+
+Device specifications table lists:  
+`Wireless: Wi-Fi 6E, Bluetooth 5.3`
+
+Wi-Fi and Bluetooth interface overview page also specifies:  
+`Standard Wi-Fi 6E (802.11ax)` and `Standard Bluetooth Core Specification v5.2` with `BLE Speed Up to 2 Mbps`
+
+--- Q4 (51.2s, prompt_tokens=26573, cached=26557, completion=79) ---
+Q: What storage options are available on this board?
+A: Storage options on the Dragonwing IQ-9075 EVK:
+
+* Device specifications:  
+  `Storage: UFS 3.1 (up to 128 GB), NVMe via PCIe`
+
+* Hardware Specifications:  
+  `Storage 2 × 128 GB UFS, micro-SD card, EEPROMs for MACs, eMMC on mezzanine card`
+=== END 06:23:14 gov=schedutil ===

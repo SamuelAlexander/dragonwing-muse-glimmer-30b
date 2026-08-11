@@ -1,0 +1,21 @@
+=== START 05:03:52 ===
+waiting for server...
+server up 05:04:27
+=== REQUEST SENT 05:04:27 ===
+  WALL 205.43 s
+=== RESPONSE 05:07:53 ===
+finish_reason: tool_calls
+content: ''
+reasoning: "Sensor report: soil moisture 18% (threshold 30%), air temperature 34C, humidity 71%, time 14:05, last watering 2 days ago. Decide what to do and call the appropriate tools.\n\nWe need decide what to 
+TOOL CALLS: [
+  {
+    "type": "function",
+    "function": {
+      "name": "run_pump",
+      "arguments": "{\"seconds\":120}"
+    },
+    "id": "ZFGBIBgn6ed6fyN0fL9z5YEv9WtpSP8m"
+  }
+]
+usage: {'completion_tokens': 354, 'prompt_tokens': 588, 'total_tokens': 942, 'prompt_tokens_details': {'cached_tokens': 0}}
+=== END 05:07:53 gov=schedutil ===

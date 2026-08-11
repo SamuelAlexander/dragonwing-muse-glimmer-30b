@@ -1,0 +1,28 @@
+0.01.811.568 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.811.599 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.834.114 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.31.482.487 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.31.482.499 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.31.482.820 W WARN: This is an experimental CLI for testing multimodal capability.
+0.31.482.825 W       For normal use cases, please use the standard llama-cli
+
+0.36.979.728 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.11.020.304 I mtmd batch encoding done in 34040 ms
+
+ to=self<|message|>Inspect this circuit board for manufacturing defects. Reply with ONLY a JSON object and nothing else: {"pass": true|false, "defect": "...", "location": "...", "severity": "low|medium|high", "reason": "..."}
+
+Inspect image. Board with yellow pin headers. Some pins bent? On lower left, pins are bent outward? Looks like pins misaligned, some bent. Defect: bent pins / misaligned header pins. Location: lower left side of board, first four pins. Severity? medium? maybe high? Bent pins could cause connectivity. Probably medium.
+
+Provide JSON.
+
+{"pass": false, "defect": "bent/misaligned header pins", "location": "lower left side of the board, first four pins of the bottom yellow header", "severity": "medium", "reason": "pins are visibly bent outward and not aligned with the header housing, indicating improper insertion or handling"}
+
+Return only JSON.<|eom|><|start|>assistant to=user<|message|>{"pass": false, "defect": "bent/misaligned header pins", "location": "lower left side of the board, first four pins of the bottom yellow header", "severity": "medium", "reason": "pins are visibly bent outward and not aligned with the header housing, indicating improper insertion or handling"}
+
+
+  WALL 212.23 s

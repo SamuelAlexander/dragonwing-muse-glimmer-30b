@@ -1,0 +1,20 @@
+0.01.808.130 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.808.154 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.829.603 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.30.964.868 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.30.964.887 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.30.965.195 W WARN: This is an experimental CLI for testing multimodal capability.
+0.30.965.196 W       For normal use cases, please use the standard llama-cli
+0.38.118.251 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.12.139.052 I mtmd batch encoding done in 34021 ms
+
+ to=self<|message|>You are a PCB quality inspector. Examine this board and report any manufacturing defects you can see. Answer with ONLY a JSON object, no other text: {"pass": true or false, "defect": "short description", "location": "where on the board", "severity": "low" or "medium" or "high", "reason": "one sentence"}
+
+Examine board. Image shows PCB with yellow pin headers. On bottom side? The board is black. Pin headers on two sides. On lower side (front), some pins are bent? Looks like pins are misaligned, some bent outward? Actually the pins on the lower left are bent at an angle, maybe 4 pins bent. Also maybe one pin missing? Let's see: top row pins all straight. Bottom row: leftmost 4 pins are bent outward / angled. Possibly soldering defect? The pins appear to be inserted into yellow plastic housing, but some pins are tilted. Might be bent
+
+  WALL 189.36 s

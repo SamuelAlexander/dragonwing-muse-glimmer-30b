@@ -1,0 +1,65 @@
+
+
+Loading model... |-\|/-\|/0.00.891.151 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\|/-\| 
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b1-dd1ea52
+model      : /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+ftype      : Q4_K - Medium
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+
+> Explain the difference between prefill and decode in LLM inference, in one paragraph.
+
+[Start thinking]
+
+Explain the difference between prefill and decode in LLM inference, in one paragraph.
+
+We need to explain difference between prefill and decode in LLM inference, in one paragraph.
+
+Probably concise. Prefill is processing prompt in parallel, compute KV cache for all tokens at once. Decode is autoregressive token-by-token generation, using cached KV, one token per step.
+
+Explain difference. One paragraph.
+
+Should be clear. Maybe mention compute bound vs memory bound. Prefill is compute-intensive, parallel; decode is memory-bandwidth bound, sequential.
+
+Make one paragraph.
+
+Probably not too long.
+
+Ensure one paragraph, not multiple paragraphs.
+
+Probably output single paragraph.
+
+Use plain language.
+
+Potential mention of attention.
+
+Let's produce final answer.
+
+Possibly: Prefill processes entire input prompt at once...
+
+Yes.
+
+Make
+
+[ Prompt: 7.0 t/s | Generation: 2.9 t/s ]
+
+
+Exiting...

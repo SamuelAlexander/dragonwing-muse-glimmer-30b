@@ -1,0 +1,17 @@
+=== START 04:24:20 gov=performance ===
+### A: baseline (no drafter)
+  A done 04:26:01
+### B: DFlash, spec-type set, default draft-n-max
+  B done 04:27:44
+### C: DFlash, draft-n-max 5, greedy
+  C done 04:29:59
+=== SUMMARY ===
+--- A ---
+[ Prompt: 7.3 t/s | Generation: 2.8 t/s ]
+--- B ---
+[ Prompt: 7.0 t/s | Generation: 2.9 t/s ]
+Loading model... |-\|/-\|/0.00.891.151 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+--- C ---
+[ Prompt: 7.0 t/s | Generation: 1.9 t/s ]
+Loading model... |-\|/-\|/-0.00.921.656 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+=== END 04:30:00 gov=schedutil ===

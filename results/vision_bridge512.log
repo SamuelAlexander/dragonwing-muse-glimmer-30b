@@ -1,0 +1,20 @@
+0.01.807.002 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.807.028 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.829.748 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.31.529.540 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.31.529.551 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.31.530.301 W WARN: This is an experimental CLI for testing multimodal capability.
+0.31.530.307 W       For normal use cases, please use the standard llama-cli
+0.38.634.302 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.12.717.049 I mtmd batch encoding done in 34083 ms
+
+ to=self<|message|>You are a PCB quality inspector. Examine this board and report any manufacturing defects you can see. Answer with ONLY a JSON object, no other text: {"pass": true or false, "defect": "short description", "location": "where on the board", "severity": "low" or "medium" or "high", "reason": "one sentence"}
+
+Examine board. Looks like a small PCB with yellow LEDs, resistors, transistors? There's corrosion? Solder splashes? Burn marks? The board has discoloration around D6, R5, R4? There's brownish residue, maybe flux or corrosion. Also component Q1? There's a component with maybe solder bridge? The board has a hole in center. The right side has a component with solder blob? Maybe a short? The board appears dirty, maybe burnt. Could be solder splash / bridging near D6 R5. Also maybe component misalignment? The board has "D1" "D
+
+  WALL 190.30 s

@@ -1,0 +1,30 @@
+0.01.834.582 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.834.608 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.857.840 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.30.970.417 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.30.970.430 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.30.971.730 W WARN: This is an experimental CLI for testing multimodal capability.
+0.30.971.738 W       For normal use cases, please use the standard llama-cli
+
+0.36.546.432 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.10.505.353 I mtmd batch encoding done in 33959 ms
+
+ to=self<|message|>Inspect this circuit board for manufacturing defects. Reply with ONLY a JSON object and nothing else: {"pass": true|false, "defect": "...", "location": "...", "severity": "low|medium|high", "reason": "..."}
+
+Inspect board. Looks like solder splashes, burnt? There's discoloration around D6, R5, R4, D4. Maybe solder bridge? Or component damage. The board has yellow LEDs, resistors, transistors? There's corrosion? Looks like flux residue and maybe burnt.
+
+Defect: solder splatter / burnt residue / component damage. Location: center-right area around D6, R5, R4, D4. Severity high? Maybe medium.
+
+Probably pass false. Defect: "excess solder / burn marks / possible solder bridge". Location: "central area near D6, R5, R4, D4". Severity high. Reason: visible discoloration, burnt flux, possible short.
+
+Return JSON only.
+
+<|eom|><|start|>assistant to=user<|message|>{"pass": false, "defect": "excess solder residue, burn marks and possible solder bridging", "location": "central-right area around D6, R5, R4 and D4", "severity": "high", "reason": "visible brown burn/discoloration and solder splatter around D6, R5, R4 and D4 with irregular solder deposits suggesting overheating or bridging, compromising reliability"}
+
+
+  WALL 220.10 s

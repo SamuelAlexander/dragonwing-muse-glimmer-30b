@@ -1,0 +1,14 @@
+server up 06:25:08
+warmed 06:25:18
+=== SAVE ===
+{"id_slot":0,"filename":"test.bin","n_saved":66,"n_written":3517508,"timings":{"save_ms":2.382}}
+HTTP 200
+=== FILES ===
+total 3464
+drwxrwxr-x  2 ubuntu ubuntu    4096 Aug 11 06:25 .
+drwxrwxrwt 18 root   root     20480 Aug 11 06:25 ..
+-rw-rw-r--  1 ubuntu ubuntu 3517508 Aug 11 06:25 test.bin
+=== RESTORE ===
+{"id_slot":0,"filename":"test.bin","n_restored":66,"n_read":3517508,"timings":{"restore_ms":1.484}}
+HTTP 200
+=== DONE 06:25:19 ===

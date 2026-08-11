@@ -1,0 +1,26 @@
+0.01.814.779 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.814.808 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.837.749 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.31.190.922 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.31.190.935 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.31.191.251 W WARN: This is an experimental CLI for testing multimodal capability.
+0.31.191.252 W       For normal use cases, please use the standard llama-cli
+0.38.301.818 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+2.50.167.752 I mtmd batch encoding done in 131866 ms
+
+ to=self<|message|>You are a PCB quality inspector. Examine this board and report any manufacturing defects you can see. Answer with ONLY a JSON object, no other text: {"pass": true or false, "defect": "short description", "location": "where on the board", "severity": "low" or "medium" or "high", "reason": "one sentence"}
+
+Examine board. The board has yellow pin headers. Bottom row pins: first four pins are bent? Actually pins 1-4 are angled, pin 5 is bent sideways. Looks like misaligned/bent pins. Also maybe pins not straight.
+
+Defect: bent/misaligned header pins. Location: lower yellow pin header, leftmost pins. Severity? Medium? Could be high? Bent pins may cause poor connection. Probably medium.
+
+Pass false.
+
+Defect: "bent header pins" or "misaligned pins". Location: "lower yellow pin header, left side (first five pins)". Severity
+
+  WALL 380.22 s

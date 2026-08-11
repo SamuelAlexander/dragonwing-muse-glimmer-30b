@@ -1,0 +1,23 @@
+=== START 04:48:07 ===
+### low_bentpin start=04:48:07
+  end=04:51:39
+### low_bridge start=04:51:39
+  end=04:55:20
+### retask_pins start=04:55:20
+  end=04:58:34
+### high_bentpin start=04:58:34
+  end=05:03:12
+=== SUMMARY ===
+--- low_bentpin ---
+1.11.020.304 I mtmd batch encoding done in 34040 ms
+  WALL 212.23 s
+--- low_bridge ---
+1.10.505.353 I mtmd batch encoding done in 33959 ms
+  WALL 220.10 s
+--- retask_pins ---
+1.12.706.795 I mtmd batch encoding done in 33954 ms
+  WALL 194.81 s
+--- high_bentpin ---
+1.10.122.096 I mtmd batch encoding done in 33933 ms
+  WALL 277.70 s
+=== END 05:03:12 gov=schedutil ===

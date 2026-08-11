@@ -1,0 +1,13 @@
+*.pyc
+.DS_Store
+AGENTS.md
+CLAUDE.md
+HANDOFF.md
+NOTES.md
+PLAN.md
+SHOTLIST.md
+STORY.md
+__pycache__/
+test-data/3d-pcb.png
+test-data/iq9075-manual.txt
+venv/

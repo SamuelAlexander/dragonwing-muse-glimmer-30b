@@ -1,0 +1,19 @@
+=== START 04:32:09 ===
+### bentpin512  start=04:32:09
+  end=04:35:19
+### bridge512  start=04:35:19
+  end=04:38:29
+### bentpin1024  start=04:38:29
+  end=04:44:49
+### bentpin512cap  start=04:44:49
+  end=04:47:59
+=== SUMMARY ===
+--- bentpin512 ---
+  WALL 189.36 s
+--- bridge512 ---
+  WALL 190.30 s
+--- bentpin1024 ---
+  WALL 380.22 s
+--- bentpin512cap ---
+  WALL 189.20 s
+=== END 04:47:59 gov=schedutil ===

@@ -1,0 +1,46 @@
+0.01.810.087 W load: setting token '<|message|>' (200023) attribute to USER_DEFINED (16), old attributes: 8
+0.01.810.113 W load: setting token '<|start|>' (200022) attribute to USER_DEFINED (16), old attributes: 8
+0.01.832.957 W load: special_eot_id is not in special_eog_ids - the tokenizer config may be incorrect
+0.30.651.346 I mtmd_cli_context: chat template example:
+<|start|>system<|message|>You are a helpful assistant
+
+Reasoning strength: high.
+
+# Valid recipients: "self", "user".<|eot|><|start|>user<|message|>Hello<|eot|><|start|>assistant to=user<|message|>Hi there<|eot|><|start|>user<|message|>How are you?<|eot|><|start|>assistant
+0.30.651.358 I main: loading model: /home/ubuntu/projects/dw07-local-llm/models/muse-glimmer-30B-kquant-17gb.gguf
+0.30.651.667 W WARN: This is an experimental CLI for testing multimodal capability.
+0.30.651.668 W       For normal use cases, please use the standard llama-cli
+
+0.36.189.572 I encoding mtmd batch, n_chunks = 1 (done = 1, total = 3)
+1.10.122.096 I mtmd batch encoding done in 33933 ms
+
+ to=self<|message|>Inspect this circuit board for manufacturing defects. Reply with ONLY a JSON object and nothing else: {"pass": true|false, "defect": "...", "location": "...", "severity": "low|medium|high", "reason": "..."}
+
+Inspect image. It's a PCB with yellow pin headers. The bottom row has some pins bent? Looks like pins are misaligned? The leftmost few pins are bent outward? Actually the pins are inserted into yellow plastic. The bottom row left side pins are angled? Maybe pins are not straight, some are bent. Also maybe missing? Let's see: bottom row, pins 1-4? The first pin is bent leftwards, second bent, third bent, fourth bent? Actually pins appear tilted. Could be a defect: bent header pins.
+
+Location: bottom left header row, pins 1-4 (or leftmost). Severity? Might be medium? Bent pins could cause connectivity issue. Might be high? Probably medium.
+
+Defect: bent/misaligned header pins.
+
+Pass false.
+
+Need JSON object with fields pass, defect, location, severity, reason.
+
+Provide defect description. Location: bottom edge left side of board, first four pins of lower header.
+
+Severity: medium? Could be high because pins may not mate. I'd say medium.
+
+Reason: pins are visibly bent outward/downward causing misalignment.
+
+Return only JSON.
+
+Make sure format exact.
+
+{"pass": false, "defect": "bent/misaligned header pins", "location": "bottom header row, leftmost pins (approx pins 1-4)", "severity": "medium", "reason": "multiple pins on the lower yellow header are visibly angled/bent away from the board, indicating improper insertion or mechanical damage that will prevent proper mating"}
+
+Ensure no extra text.
+
+Output only JSON.<|eom|><|start|>assistant to=user<|message|>{"pass": false, "defect": "bent/misaligned header pins", "location": "bottom header row, leftmost pins (approx pins 1-4)", "severity": "medium", "reason": "multiple pins on the lower yellow header are visibly angled/bent away from the board, indicating improper insertion or mechanical damage that will prevent proper mating"}
+
+
+  WALL 277.70 s
